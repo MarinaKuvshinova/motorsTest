@@ -1,0 +1,183 @@
+@import "./variables";
+
+/**RESET**/
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-size: 14px;
+
+  @include tablet {
+    font-size: 16px;
+  }
+}
+
+body {
+  margin: 0;
+  font: 400 1em/1.5 $ff-sora;
+  background: $white;
+  min-width: 320px;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: none;
+  color: $black;
+}
+
+img {
+  border-style: none;
+}
+
+a {
+  text-decoration: underline;
+  color: $green;
+  outline: none !important;
+  @include transition();
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:active {
+    background-color: transparent;
+  }
+}
+
+header,
+footer,
+article,
+section,
+nav,
+figure,
+aside {
+  display: block;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+/**STYLEGUIDE**/
+
+h1,
+.h1 {
+  font: 800 2.125em/1.08 $ff-sora;
+  letter-spacing: -0.02em;
+  margin: 0;
+
+  @include desktop {
+    font-size: 3.25em;
+    line-height: 1.37;
+    letter-spacing: -0.03em;
+  }
+}
+
+h2,
+.h2 {
+  font: 800 1.875em/1.4 $ff-sora;
+  margin: 0;
+
+  @include desktop {
+    font-size: 3.125em;
+    line-height: 1.26;
+    letter-spacing: -0.02em;
+  }
+}
+
+h3,
+.h3 {
+  font: 800 1.5625em/1.52 $ff-sora;
+  margin: 0;
+
+  @include desktop {
+    font-size: 2.5em;
+    line-height: 1.5;
+  }
+}
+
+h4,
+.h4 {
+  font: 800 1.375em/1.37 $ff-sora;
+  letter-spacing: 0.01em;
+  margin: 0;
+
+  @include desktop {
+    font-size: 1.875em;
+    letter-spacing: 0.01em;
+  }
+}
+
+h5,
+.h5 {
+  font: 800 1.25em/1.45 $ff-sora;
+  margin: 0;
+
+  @include desktop {
+    font-size: 1.5em;
+    line-height: 1.21;
+  }
+}
+
+p {
+  margin: 0 0 20px;
+}
+
+.button {
+  text-align: center;
+  padding: 10px 20px;
+  display: block;
+  margin: 0 auto 0 0;
+  min-width: 190px;
+  color: $black;
+  font-weight: 800;
+  text-decoration: none;
+  background: $green;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  @include transition;
+
+  @include tablet {
+    display: inline-block;
+    width: auto;
+  }
+
+  &:hover {
+    border-color: $green;
+    background: $black;
+    color: $green;
+  }
+
+  &:active {
+  }
+
+  &:disabled {
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    position: relative;
+    padding: 0 0 5px 15px;
+
+    &:before {
+      border-radius: 50%;
+      width: 5px;
+      height: 5px;
+      content: "";
+      position: absolute;
+      top: 7px;
+      left: 0;
+      background: currentColor;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+}

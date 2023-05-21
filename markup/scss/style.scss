@@ -1,0 +1,559 @@
+@import "./reset";
+
+.wrapper {
+  overflow: clip;
+  width: 100%;
+  position: relative;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 22px;
+
+  @include desktop {
+    max-width: 1920px;
+    padding: 0 80px;
+  }
+
+  @include large-desktop {
+    padding: 0 110px;
+  }
+}
+
+/*HEADER*/
+.header {
+  background: $white;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: sticky;
+  padding: 10px 0;
+  z-index: 200;
+
+  > .container {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.logo {
+  a {
+    color: $black;
+    text-decoration: none;
+    font-weight: 400;
+  }
+}
+
+.nav-open-close {
+  width: 20px;
+  height: 15px;
+  position: relative;
+  display: block;
+  border: 0;
+  text-decoration: none;
+  margin: 0 10px 0 0;
+
+  @include large-desktop {
+    display: none;
+  }
+
+  &:before,
+  &:after,
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    content: "";
+    @include transition;
+    background: $black;
+  }
+
+  span {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &:after {
+    top: auto;
+    bottom: 0;
+  }
+
+  .active-header & {
+    span {
+      opacity: 0;
+    }
+
+    &:before {
+      z-index: 2;
+      transform: rotate(-45deg) translate(-4px, 4px);
+    }
+
+    &:after {
+      transform: rotate(45deg) translate(-5px, -5px) scaleX(-1);
+    }
+  }
+}
+
+.nav {
+  position: absolute;
+  background: $white;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  overflow: hidden;
+  max-height: 0;
+  @include transition();
+
+  @include large-desktop {
+    position: relative;
+    top: auto;
+    left: auto;
+    max-height: 100%;
+    padding: 0 5%;
+    overflow: visible;
+  }
+
+  .active-header & {
+    height: auto;
+    max-height: calc(100vh - 50px);
+    box-shadow: 0 5px 10px rgba($black, 0.2);
+
+    @include large-desktop {
+      box-shadow: 0 5px 10px rgba($black, 0);
+    }
+  }
+
+  > ul {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid $black;
+    overflow-y: auto;
+    font-weight: 800;
+
+    @include tablet {
+      align-items: flex-start;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    @include large-desktop {
+      border: 0;
+      padding: 0;
+      overflow: visible;
+    }
+
+    > li {
+      margin-bottom: 20px;
+
+      @include large-desktop {
+        position: relative;
+        margin: 0;
+      }
+
+      &.has-child {
+        @include large-desktop {
+          padding: 0 20px 0 0;
+          background: url("../images/down-arrow.svg") no-repeat 100% 50%;
+        }
+      }
+    }
+
+    ul {
+      font-weight: 400;
+      padding-left: 20px;
+
+      @include large-desktop {
+        padding-left: 0;
+      }
+    }
+  }
+
+  li {
+    padding: 0;
+
+    &:before {
+      display: none;
+    }
+
+    &:hover {
+      .header-drop-menu {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  }
+
+  a {
+    color: $black;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .header-drop-menu {
+    @include large-desktop {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: $white;
+      width: 200px;
+      overflow: hidden;
+      @include transition();
+      opacity: 0;
+      padding: 20px;
+      pointer-events: none;
+      border: 1px solid rgba($black, 0.2);
+      box-shadow: 0 0 10px rgba($black, 0.2);
+    }
+  }
+}
+
+.header-icon-list {
+  margin: 0 0 0 auto;
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+
+  @include tablet {
+    gap: 30px;
+    margin: 0 0 0 20px;
+  }
+
+  li {
+    padding: 0;
+
+    &:before {
+      display: none;
+    }
+  }
+
+  a {
+    color: $black;
+    text-decoration: none;
+    text-align: center;
+
+    &:hover {
+      color: $green;
+    }
+
+    span {
+      display: none;
+
+      @include tablet {
+        display: block;
+      }
+    }
+
+    svg {
+      display: block;
+      width: 24px;
+      height: 24px;
+      margin: 0 auto;
+
+      path {
+        @include transition;
+        fill: currentColor;
+      }
+
+      &.stroke {
+        path {
+          fill: none;
+          stroke: currentColor;
+        }
+      }
+    }
+  }
+
+  .phone-button,
+  .search-button {
+    @include tablet {
+      display: none;
+    }
+  }
+
+  .find-button {
+    display: none;
+
+    @include tablet {
+      display: block;
+    }
+  }
+}
+
+.search {
+  overflow: hidden;
+  max-height: 0;
+  @include transition();
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+  background: $white;
+
+  @include tablet {
+    position: relative;
+    top: auto;
+    left: auto;
+    max-height: 40px;
+    margin: 0 0 0 auto;
+    width: 30%;
+  }
+
+  .active-header-search & {
+    height: auto;
+    max-height: calc(100vh - 50px);
+  }
+
+  form {
+    padding: 20px;
+    border-top: 1px solid $black;
+    position: relative;
+
+    @include tablet {
+      border: 0;
+      padding: 0;
+      width: 100%;
+    }
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: 20px;
+    background: #ebebeb url("../images/search.svg") no-repeat 10px 50%;
+    padding: 10px 35px;
+  }
+
+  .search-row {
+    position: relative;
+  }
+
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: none;
+    opacity: 0.6;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    path {
+      @include transition();
+      fill: currentColor;
+    }
+  }
+}
+
+/**MAIN**/
+/*hero-section*/
+.hero-section {
+  position: relative;
+  background: $black;
+  color: $white;
+  min-height: 350px;
+
+  .picture-bg {
+    max-height: 100vh;
+    margin: 0 -22px;
+
+    @include tablet {
+      width: 100%;
+      margin: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+
+      @include tablet {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .text {
+    background: $black;
+    text-align: center;
+    padding: 20px 0;
+
+    @include tablet {
+      text-align: left;
+      max-width: 500px;
+      background: none;
+      padding: 50px 0;
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+  .button {
+    width: 100%;
+    display: block;
+
+    @include tablet {
+      width: auto;
+      display: inline-block;
+    }
+  }
+}
+
+/*cards-section*/
+.cards-section {
+  padding: 50px 0;
+
+  h2 {
+    margin: 0 0 30px;
+  }
+}
+
+.cards-slider {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+
+  @include tablet {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba($black, 0.3);
+  border: 1px solid transparent;
+  @include transition;
+
+  &:hover {
+    border-color: rgba($black, 0.2);
+    box-shadow: 0 0 20px rgba($green, 0.3);
+  }
+
+  .picture {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .text {
+    padding: 20px;
+
+    ul {
+      font-size: 14px;
+    }
+  }
+
+  .price {
+    display: block;
+    margin: 0 0 10px;
+  }
+
+  .link {
+    position: absolute;
+    text-indent: -9999px;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/*reverse-section*/
+.reverse-section {
+  background: $grey;
+
+  @include tablet {
+    padding: 50px 0;
+  }
+
+  &.black {
+    background: $black;
+    color: $white;
+  }
+
+  &.reverse {
+    .picture {
+      @include tablet {
+        order: -1;
+      }
+    }
+  }
+
+  .container {
+    @include tablet {
+      display: grid;
+      gap: 5%;
+      grid-template-columns: 40% 60%;
+    }
+  }
+
+  .picture {
+    @include tablet {
+      order: 2;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+
+      @include tablet {
+        border-radius: 20px;
+      }
+    }
+  }
+
+  .text {
+    padding: 30px 22px;
+
+    @include tablet {
+      padding: 0;
+      align-self: center;
+    }
+  }
+
+  h2 {
+    margin: 0 0 10px;
+  }
+
+  .columns {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 0 20px;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  h4 {
+    margin: 0 0 10px;
+  }
+}
